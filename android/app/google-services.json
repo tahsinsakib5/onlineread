@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "840886565043",
+    "project_id": "onlineread-82204",
+    "storage_bucket": "onlineread-82204.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840886565043:android:e6abdf1bb9cffdde1198c6",
+        "android_client_info": {
+          "package_name": "com.example.onlineread"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDi-UBzb8XPEtwDBoaTD25HCFpFYf547o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
