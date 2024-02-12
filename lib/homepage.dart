@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:onlineread/coment%20twmplate.dart';
 
 class Homwpage extends StatefulWidget {
   const Homwpage({super.key});
@@ -6,7 +8,7 @@ class Homwpage extends StatefulWidget {
   @override
   State<Homwpage> createState() => _HomwpageState();
 }
-
+  Stream docsnap = FirebaseFirestore.instance.collection("post").snapshots();
   bool islike = false;
 
 class _HomwpageState extends State<Homwpage> {
@@ -17,9 +19,32 @@ class _HomwpageState extends State<Homwpage> {
         child: Column(
           children: [
             header(),
-        
-           Expanded(
+
+            StreamBuilder(stream:docsnap, builder:(context, snapshot) {
+              if(snapshot.hasError){
+                print("something wrong");
+              }
+               if(snapshot.connectionState==ConnectionState.waiting){
+                Text("loding..");
+              }
+
+               List<DocumentSnapshot> alldoc = snapshot.data!.docs;
+
+               print(snapshot.data);
+
+
+               return    Expanded(
              child: ListView.builder(itemCount:10,shrinkWrap:true,itemBuilder: (context, index) {
+
+               var docMap =
+                            alldoc[index].data() as Map<String, dynamic>;
+                            
+
+                            var contant = (docMap['contant']);
+
+                            print(contant);
+
+                        
                return    Card(
                 child: Container(
                  child: Column(
@@ -85,14 +110,26 @@ class _HomwpageState extends State<Homwpage> {
                            )
                         ],
                       ),
-                    )
+                    ),
+
+                    
                     
                   ],
                  ),
                 ),
               );
              },),
-           )
+           );
+            },),
+        
+        Expanded(
+          child: ListView.builder(itemCount:10,itemBuilder: (context, index) {
+            return Template(massege: "sakib");
+          },),
+        )
+     
+
+       
           ],
         ),
       ),

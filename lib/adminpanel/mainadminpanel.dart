@@ -1,10 +1,13 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:onlineread/homepage.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 
 class adminpanel extends StatefulWidget {
@@ -13,7 +16,8 @@ class adminpanel extends StatefulWidget {
   @override
   State<adminpanel> createState() => _adminpanelState();
 }
-
+final controlarpost =TextEditingController();
+final controheadline =TextEditingController();
  File? imagefile;
 
 class _adminpanelState extends State<adminpanel> {
@@ -24,14 +28,24 @@ class _adminpanelState extends State<adminpanel> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+               TextField(
+                controller:controheadline,
+                maxLines:3,
+                decoration: InputDecoration(
+                  hintText:"write in here"
+                ),
+              ),
           
           
               TextField(
+                controller:controlarpost,
                 maxLines: 10,
                 decoration: InputDecoration(
                   hintText:"write in here"
                 ),
               ),
+           
+
            
            Stack(
              children: [
@@ -79,7 +93,13 @@ class _adminpanelState extends State<adminpanel> {
                   
                   
                 }, child:Text("post")),
-              )
+
+
+                
+              ),
+              ElevatedButton(onPressed: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context) => Homwpage(),));
+              }, child:Text("navigato"))
             ],
           ),
         ),
@@ -132,16 +152,17 @@ var colaction = await FirebaseFirestore.instance.collection("post");
 
 
  Map <String,dynamic> post_map ={
- "head_line":"sakib",
- "contant":"sakib2",
- "imageurl":"sa",
- "like":12,
+ "head_line":controheadline.text,
+ "contant":controlarpost.text,
+ "imageurl":url,
+ "like":0,
   "coment":[]
  };
 
- colaction.add(post_map);
+await colaction.add(post_map);
  }
 
 
 }
+
 
